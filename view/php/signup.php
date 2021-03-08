@@ -22,6 +22,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){ //check if request method is POST
   $email = cleanInput($_POST['email']);
   $password = cleanInput($_POST['password']);
   $passwordCHECK = cleanInput($_POST['passwordCHECK']);
+  $admin = 0;
 
   //phone regex pattern
   $patternPhone = "/^[1-9][0-9]{2}(\.|\-)[0-9]{3}(\.|\-)[0-9]{4}$/";
@@ -66,11 +67,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){ //check if request method is POST
 
     $password = password_hash($password, PASSWORD_DEFAULT); //hash password
 
-    $query = "INSERT INTO users(PASSWORD, FIRST_NAME, LAST_NAME, PHONE_NUM, STREET, CITY, STATE, ZIP, EMAIL) VALUES(?,?,?,?,?,?,?,?,?)"; //insert all the data into table
+    $query = "INSERT INTO users(PASSWORD, FIRST_NAME, LAST_NAME, PHONE_NUM, STREET, CITY, STATE, ZIP, EMAIL, ADMIN) VALUES(?,?,?,?,?,?,?,?,?,?)"; //insert all the data into table
       
     $stmt2 = $conn->prepare($query); //prepare
         
-    $stmt2->bind_param('sssssssss', $password, $firstname, $lastname, $phoneNumber, $street, $city, $state, $zip, $email); //bind
+    $stmt2->bind_param('sssssssssi', $password, $firstname, $lastname, $phoneNumber, $street, $city, $state, $zip, $email, $admin); //bind
         
     if($stmt2->execute()) { //if execute is successful
          
@@ -79,6 +80,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){ //check if request method is POST
       $_SESSION['firstname'] = $firstname; // setting the session variables
       $_SESSION['lastname'] = $lastname;
       $_SESSION['email'] = $email;
+      $_SESSION['isAdmin'] = $admin;
       if(isset($_SESSION['guest'])) {
         unset($_SESSION['guest']); //if user logs in while being a guest, unset guest
     }

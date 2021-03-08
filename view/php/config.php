@@ -4,10 +4,10 @@ if(!isset($_SESSION))
 { 
     session_start(); 
 } 
-DEFINE('SERVER', 'localhost'); //server name
-DEFINE('USER', 'root'); //user
-DEFINE('PASS', ''); //pass
-DEFINE('DATABASE', 'gamersstore'); //database name
+DEFINE('SERVER', 'csidatabase'); //server name
+DEFINE('USER', 'habib'); //user
+DEFINE('PASS', 'andrea3383'); //pass
+DEFINE('DATABASE', 'habib_'); //database name
 
 //check if database doesn't return any errors, catches any exception
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT); 
